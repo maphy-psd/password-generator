@@ -9,8 +9,18 @@
     <link rel="stylesheet" href="style.css" type="text/css" media="screen">
     <script type="text/javascript" src="dragdealer.js"></script>
     <script type="text/javascript" src="script.js"></script>
+
+<script type="text/javascript">
+function aktivieren(){
+    document.getElementById('arg5').disabled = !document.getElementById('arg4').checked;
+}
+function deaktivieren(){
+    document.getElementById('arg5').disabled=true;
+}
+</script>
+
 </head>
-<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0" class="h100">
+<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0" class="h100" onload="deaktivieren();">
 <table cellpadding=0 cellspacing=0 border=0 align=center class="h100">
     <tr>
 	<td valign="middle" align="center" heihgt="100%">
@@ -20,14 +30,16 @@
                     <div class="red-bar handle" id="drag-helper">drag me</div>
                 </div>
                 <div id="boxes">
-		    <label id="l1" title="Use small letters"><input onChange="refreshpw();" type="checkbox" id=arg1 name=arg1 checked>small letters</label>
-		    <label id="l2" title="Use big letters"><input onChange="refreshpw();" type="checkbox" id=arg2 name=arg2>big letters</label>
-		    <label id="l3" title="Use numbers"><input onChange="refreshpw();" type="checkbox" id=arg3 name=arg3 checked>numbers</label>
-		    <label id="l4" title="Use punctuation"><input onChange="refreshpw();" type="checkbox" id=arg4 name=arg4>punctuation</label>
+		    <label id="l1" title="Benutze Kleinbuchstaben"><input onChange="refreshpw();" type="checkbox" id=arg1 name=arg1 checked>Kleinbuchstaben</label>
+		    <label id="l2" title="Benutze Großbuchstaben"><input onChange="refreshpw();" type="checkbox" id=arg2 name=arg2>Großbuchstaben</label>
+		    <label id="l3" title="Benutze Zahlen"><input onChange="refreshpw();" type="checkbox" id=arg3 name=arg3 checked>Zahlen</label>
+		    <label id="l4" title="Benutze Sonderzeichen"><input onChange="refreshpw();" onclick="aktivieren();" type="checkbox" id=arg4 name=arg4>Sonderzeichen</label>
+		    <label id="l5" title="Erlaubte Sonderzeichen"><input type="text" name="arg5" id="arg5" value="!?@(){}=~$&#*-+_" size="18" class="text"></label>
 		</div>
-		<button id=re class="input2" onClick="refreshpw();return false;" title="Generate!">Generate password</button>
+		<button id=re class="input2" onClick="refreshpw();return false;" title="Generate!">Generiere Password</button>
 		<div id="footer">
-		<small>Source: <a href='https://github.com/aleksandr-rakov/password-generator'>https://github.com/aleksandr-rakov/password-generator</a></small>
+		<small>Source: <a href='https://github.com/aleksandr-rakov/password-generator'>https://github.com/aleksandr-rakov/password-generator</a></small><br>
+		<small>Fork: <a href='https://github.com/maphy-psd/password-generator'>https://github.com/maphy-psd/password-generator</a></small>
 		</div>
 	</td>
     </tr>
@@ -35,7 +47,7 @@
 <script type="text/javascript">
     var pw_len;
     function refreshpw(){
-	genpw('pw',pw_len,'arg1','arg2','arg3','arg4');
+	genpw('pw',pw_len,'arg1','arg2','arg3','arg4','arg5');
     }
     new Dragdealer('my-slider',
     {
@@ -44,7 +56,7 @@
         snap : true,
         animationCallback: function(x, y){
             pw_len=parseInt(3 + x * 57);
-            document.getElementById('drag-helper').innerHTML=pw_len + ' signs';
+            document.getElementById('drag-helper').innerHTML=pw_len + ' Zeichen';
             refreshpw('pw');
         }
     });
